@@ -18,3 +18,5 @@ jobs:
         node-version: '14'
     - run: cd .\testReactTruffle\client
     - run: npm install
+    - run: cd ..
+    - run: truffle compile

@@ -16,9 +16,5 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
-    - run: cd .\testReactTruffle
-    - run: npm install solc --save
     - run: cd .\testReactTruffle\client
     - run: npm install
-    - run: cd ..
-    - run: truffle compile

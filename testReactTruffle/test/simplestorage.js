@@ -8,4 +8,6 @@ contract("SimpleStorage", accounts => {
 
     instance = await SimpleStorage.deployed();
   });
+
+  
 });

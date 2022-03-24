@@ -18,3 +18,4 @@ jobs:
         node-version: '14'
     - run: cd .\testReactTruffle\client
     - run: npm install
+    - run: npm run build

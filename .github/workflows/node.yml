@@ -16,5 +16,8 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
-    - run: cd .\testReactTruffle\client
+    - run: npm install -g truffle
+    - run: cd testReactTruffle
+    - run: truffle test
+    - run: cd client
     - run: npm install

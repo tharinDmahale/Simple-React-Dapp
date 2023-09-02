@@ -1,3 +1,5 @@
 
 testReactTruffle/client/src/contracts/Migrations.json
 testReactTruffle/client/src/contracts/SimpleStorage.json
+testReactTruffle/client/build
+testReactTruffle/client/node_modules

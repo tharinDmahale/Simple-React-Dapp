@@ -1,0 +1,89 @@
+def RECIPIENT = "deelaka.mahale@gmail.com"
+
+pipeline {
+    agent any
+    
+    tools {
+        nodejs "NodeJS"
+    }
+
+    stages {
+        stage("Test Smart Contracts") {
+            steps {
+                dir ("testReactTruffle") {
+                    script {
+                        bat "truffle test"
+                    }
+                }
+            }
+        }
+
+        stage("Deploy Smart Contracts") {
+            steps {
+                dir ("testReactTruffle") {
+                    script {
+                        bat "truffle deploy"
+                    }
+                }
+            }
+        }
+
+        stage("Install Dependencies") {
+            steps {
+                dir ("testReactTruffle") {
+                    script {
+                        bat """
+                        cd client
+                        npm install
+                        """
+                    }
+                }
+            }
+        }
+
+        stage("Build The Application") {
+            steps {
+                dir ("testReactTruffle") {
+                    script {
+                        bat """
+                        cd client
+                        npm run build
+                        xcopy build ..\\..\\docs /e /i /y /v
+                        """
+                    }
+                }
+            }
+        }
+
+        stage("Run The Application") {
+            steps {
+                dir ("testReactTruffle") {
+                    script {
+                        bat """
+                        cd client
+                        npm run start
+                        """
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            emailext(
+                subject: "Jenkins job ${JOB_NAME} build ${BUILD_NUMBER} passed",
+                body: "Job: ${JOB_NAME}\nBuild: ${BUILD_NUMBER}\nStatus: Passed",
+                to: "${RECIPIENT}"
+            )
+        }
+
+        failure {
+            emailext(
+                subject: "Jenkins job ${JOB_NAME} build ${BUILD_NUMBER} failed",
+                body: "Job: ${JOB_NAME}\nBuild: ${BUILD_NUMBER}\nStatus: Failed",
+                to: "${RECIPIENT}"
+            )
+        }
+    }
+}

@@ -54,19 +54,6 @@ pipeline {
                 }
             }
         }
-
-        stage("Run The Application") {
-            steps {
-                dir ("testReactTruffle") {
-                    script {
-                        bat """
-                        cd client
-                        npm run start
-                        """
-                    }
-                }
-            }
-        }
     }
 
     post {

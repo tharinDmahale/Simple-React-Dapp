@@ -17,8 +17,6 @@ jobs:
       with:
         node-version: '14'
     - run: cd .\testReactTruffle\client
-    - run: npm install
-    - run: cd .\testReactTruffle\client
     - run: npm run build
     - run: xcopy C:\GitHubRepos\GitHub\Simple-React-Dapp\testReactTruffle\client\build C:\GitHubRepos\GitHub\Simple-React-Dapp\docs /e /i /y /v
     

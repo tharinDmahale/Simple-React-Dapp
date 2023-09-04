@@ -71,7 +71,9 @@ pipeline {
                 dir (params.serverUploadLocation) {
                     script {
                         bat """
-                        dir
+                        git add .
+                        git commit -m "server upload"
+                        git push
                         """
                     }
                 }

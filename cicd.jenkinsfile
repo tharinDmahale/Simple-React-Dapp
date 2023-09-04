@@ -48,6 +48,9 @@ pipeline {
                         bat """
                         cd client
                         npm run build
+                        """
+                        bat """
+                        cd client
                         xcopy build ..\\..\\docs /e /i /y /v
                         """
                     }

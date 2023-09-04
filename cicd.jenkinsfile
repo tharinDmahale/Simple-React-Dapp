@@ -1,5 +1,3 @@
-def RECIPIENT = "deelaka.mahale@gmail.com"
-
 pipeline {
     agent any
     
@@ -8,7 +6,8 @@ pipeline {
     }
 
     parameters {
-        string(name: "serverUploadLocation", defaultValue: "C:\\GitHubRepos\\GitHub\\tharinDmahale-server\\docs", description: "hosting location to upload to the server")
+        string(name: "serverUploadLocation", defaultValue: "C:\\GitHubRepos\\GitHub\\tharinDmahale-server\\docs", description: "location to upload to the server")
+        string(name: "emailRecipients", defaultValue: "deelaka.mahale@gmail.com", description: "pipeline status report email recipients")
     }
 
     stages {
@@ -85,7 +84,7 @@ pipeline {
             emailext(
                 subject: "Jenkins job ${JOB_NAME} build ${BUILD_NUMBER} passed",
                 body: "Job: ${JOB_NAME}\nBuild: ${BUILD_NUMBER}\nStatus: Passed",
-                to: "${RECIPIENT}"
+                to: "${emailRecipients}"
             )
         }
 
@@ -93,7 +92,7 @@ pipeline {
             emailext(
                 subject: "Jenkins job ${JOB_NAME} build ${BUILD_NUMBER} failed",
                 body: "Job: ${JOB_NAME}\nBuild: ${BUILD_NUMBER}\nStatus: Failed",
-                to: "${RECIPIENT}"
+                to: "${emailRecipients}"
             )
         }
     }

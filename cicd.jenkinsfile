@@ -7,6 +7,10 @@ pipeline {
         nodejs "NodeJS"
     }
 
+    parameters {
+        string(name: "serverUploadLocation", defaultValue: "C:\\GitHubRepos\\GitHub\\tharinDmahale-server\\docs", description: "hosting location to upload to the server")
+    }
+
     stages {
         stage("Test Smart Contracts") {
             steps {
@@ -41,7 +45,7 @@ pipeline {
             }
         }
 
-        stage("Build The Application") {
+        stage("Build Application") {
             steps {
                 dir ("testReactTruffle") {
                     script {
@@ -49,9 +53,26 @@ pipeline {
                         cd client
                         npm run build
                         """
+                    }
+                }
+            }
+        }
+
+        stage("Server Upload") {
+            steps {
+                dir ("testReactTruffle") {
+                    script {
                         bat """
                         cd client
-                        xcopy build ..\\..\\docs /e /i /y /v
+                        xcopy build %serverUploadLocation% /e /i /y /v
+                        """
+                    }
+                }
+
+                dir (params.serverUploadLocation) {
+                    script {
+                        bat """
+                        dir
                         """
                     }
                 }

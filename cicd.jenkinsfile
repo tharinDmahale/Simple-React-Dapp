@@ -6,7 +6,7 @@ pipeline {
     }
 
     parameters {
-        //string(name: "serverUploadLocation", defaultValue: "C:\\GitHubRepos\\GitHub\\tharinDmahale-server\\docs", description: "location to upload to the server")
+        string(name: "serverUploadLocation", defaultValue: "C:\\GitHubRepos\\GitHub\\tharinDmahale-server\\docs", description: "location to upload to the server")
         string(name: "emailRecipients", defaultValue: "deelaka.mahale@gmail.com", description: "pipeline status report email recipients")
     }
 
@@ -44,7 +44,6 @@ pipeline {
             }
         }
 
-        /*
         stage("Build Application") {
             steps {
                 dir ("testReactTruffle") {
@@ -80,7 +79,6 @@ pipeline {
                 }
             }
         }
-        */
     }
 
     post {
